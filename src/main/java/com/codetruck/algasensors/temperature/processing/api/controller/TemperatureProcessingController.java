@@ -6,6 +6,7 @@ import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,6 +54,11 @@ public class TemperatureProcessingController {
         String routingKey = StringUtils.EMPTY;
         Object payload = logOutput;
 
-        rabbitTemplate.convertAndSend(exchange, routingKey, payload);
+        MessagePostProcessor messagePostProcessor = message -> {
+            message.getMessageProperties().setHeader("sensorId", logOutput.getSensorId().toString());
+            return message;
+        };
+
+        rabbitTemplate.convertAndSend(exchange, routingKey, payload, messagePostProcessor);
     }
 }
