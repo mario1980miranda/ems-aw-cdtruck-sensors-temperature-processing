@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="temperature-processing" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.codetruck.algasensors.temperature.processing.TemperatureProcessingApplication" />
+    <module name="temperature-processing.main" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
